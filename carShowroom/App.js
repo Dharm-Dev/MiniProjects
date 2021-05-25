@@ -104,6 +104,7 @@ class App extends React.Component{
       ],
       f:false,
       fmid:false,
+      total:0,
 
     }
     // this.callME();
@@ -122,7 +123,10 @@ class App extends React.Component{
       }
      ).then(res=>{ this.setState({fmid:true});return res.json(); }).then(
          response=>{
-            this.setState({result:response['Results']});
+            this.setState({
+              result:response['Results'],
+              total:response['Count'],
+          });
           }
         ).catch(
         error=>{console.log(error)}
@@ -134,7 +138,7 @@ class App extends React.Component{
     return(
     // <ScrollView>
     <View style={{height:this.h}}>
-      <Text>Car Details</Text>
+      <Text style={{textAlign:'center',backgroundColor:'gray',color:'yellow'}}>Car Details</Text>
       <ImageBackground style={{height:this.h-20,width:this.w}} source={{uri:"https://th.bing.com/th/id/OIP.U36m8qBEgZSUwuSbGoVK3AHaNK?w=187&h=333&c=7&o=5&dpr=1.5&pid=1.7"}}>
       {(!this.state.f)?(      
         <View> 
@@ -142,11 +146,13 @@ class App extends React.Component{
           <Text>Fetching Data From Server ... {'\n'} Server : https://vpic.nhtsa.dot.gov/api/</Text>          
         </View>
         ) :
-        ( <ScrollView keyboardShouldPersistTaps="handled" style={{height:this.h-100}}>
-                
+        ( <View>
+          <Text style={{color:'white'}}>Total : {this.state.total}</Text>
+        <ScrollView keyboardShouldPersistTaps="handled" style={{height:this.h-100}}>
+               
                 {this.state.result.map((i,k)=>{
                   return (
-                  <View key={k} style={{margin:12, alignItems:'center',borderWidth:2, padding:20,elevation:4}}>
+                  <View key={k} style={{margin:12,backgroundColor:'gray' , opacity:0.5,alignItems:'center',borderWidth:2, padding:20,elevation:4}}>
                     <Text>Id: {i.MakeId}</Text>
                     <Text>Model: {i.MakeName}</Text>
                     <Text>VehicleTypeName: {i.VehicleTypeName}</Text>
@@ -154,6 +160,7 @@ class App extends React.Component{
                     })
                 }
           </ScrollView>
+          </View>
           )
         
         }
@@ -162,13 +169,13 @@ class App extends React.Component{
   }
   h=Dimensions.get('window').height;
   w=Dimensions.get('window').width;
-  style=StyleSheet.create({
-    oneView:{
-      height:this.h,
-      width:this.w,
-    }
+  // style=StyleSheet.create({
+  //   oneView:{
+  //     height:this.h,
+  //     width:this.w,
+  //   }
 
-  });
+  // });
 }
 
 export default App;
