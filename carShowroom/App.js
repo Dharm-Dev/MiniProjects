@@ -63,30 +63,30 @@ class App extends React.Component{
     <View style={{height:this.h}}>
       <Text style={{textAlign:'center',backgroundColor:'gray',color:'yellow'}}>Car Details</Text>
       <ImageBackground style={{height:this.h-20,width:this.w}} source={{uri:"https://th.bing.com/th/id/OIP.U36m8qBEgZSUwuSbGoVK3AHaNK?w=187&h=333&c=7&o=5&dpr=1.5&pid=1.7"}}>
-      {(!this.state.f)?(      
-        <View> 
-          {(this.state.fmid)?(<ActivityIndicator color='green' size='large' /> ):(<ActivityIndicator color='red' size='large' /> )}
-          <Text>Fetching Data From Server ... {'\n'} Server : https://vpic.nhtsa.dot.gov/api/</Text>          
-        </View>
-        ) :
-        ( <View>
-          <Text style={{color:'white'}}>Total : {this.state.total}</Text>
-        <ScrollView keyboardShouldPersistTaps="handled" style={{height:this.h-100}}>
-               
-                {this.state.result.map((i,k)=>{
-                  return (
-                  <View key={k} style={{margin:12,backgroundColor:'gray' , opacity:0.5,alignItems:'center',borderWidth:2, padding:20,elevation:4}}>
-                    <Text>Id: {i.MakeId}</Text>
-                    <Text>Model: {i.MakeName}</Text>
-                    <Text>VehicleTypeName: {i.VehicleTypeName}</Text>
-                  </View> );
-                    })
-                }
-          </ScrollView>
-          </View>
-          )
-        
+          {(!this.state.f)?(      
+            <View style={{height:this.h-80}}> 
+              {(this.state.fmid)?(<ActivityIndicator color='green' size='large' /> ):(<ActivityIndicator color='red' size='large' /> )}
+              <Text>Fetching Data From Server ... {'\n'} Server : https://vpic.nhtsa.dot.gov/api/</Text>          
+            </View>
+            ) :
+            ( <View style={{height:this.h-80}}>
+              <Text style={{color:'white'}}>Total : {this.state.total}</Text>
+            <ScrollView keyboardShouldPersistTaps="handled" style={{height:this.h-100}}>
+                  
+                    {this.state.result.map((i,k)=>{
+                      return (
+                      <View key={k} style={{margin:12,backgroundColor:'gray' , opacity:0.5,alignItems:'center',borderWidth:2, padding:20,elevation:4}}>
+                        <Text>Id: {i.MakeId}</Text>
+                        <Text>Model: {i.MakeName}</Text>
+                        <Text>VehicleTypeName: {i.VehicleTypeName}</Text>
+                      </View> );
+                        })
+                    }
+              </ScrollView>
+              </View>
+              )       
         }
+        <Text style={{textAlign:'center',backgroundColor:'gray',color:'yellow'}}>Created By Dharm Vashisth</Text>
         </ImageBackground>
     </View>)
   }
