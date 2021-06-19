@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Image, ImageBackground, Button, TouchableOpacity } from 'react-native'
+import { View, Text, Image, ImageBackground,TextInput, Button, TouchableOpacity } from 'react-native'
 
 export default function Home(props) {
     return (
@@ -13,6 +13,7 @@ export default function Home(props) {
                 source={{uri:'https://th.bing.com/th/id/OIP.ihrdOrqovy759o2uX9L6oAHaFj?w=227&h=180&c=7&o=5&dpr=1.5&pid=1.7'}} 
                 resizeMode='contain'
                 >
+                    
                     <TouchableOpacity style={{alignItems:'center',marginTop:'60%',}} 
                         onPress={()=>{
                             props.navigation.navigate('Quiz');
