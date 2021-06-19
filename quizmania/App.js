@@ -20,7 +20,7 @@ const Stack = createStackNavigator();
 const showConfirmDialog = () => {
   return Alert.alert(
     "Are your sure?",
-    "Are you sure you want to remove this beautiful box?",
+    "Are you sure you want to Exit the app?",
     [
       // The "Yes" button
       {
