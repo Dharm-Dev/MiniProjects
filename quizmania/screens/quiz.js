@@ -9,49 +9,41 @@ class CurrentQuestion extends React.Component{
         return(
             <View>
                     {/* question */}
-                    <View style={{marginBottom:20}}>
+                    <View style={{marginTop:20}}>
                         <View>
-                            <Text style={{textAlign:'center'}}>Question {this.props.count+ 1}</Text>
-                        <View>                            
+                            <Text style={{textAlign:'center',margin:5,fontSize:18}}>Question {this.props.count+ 1}</Text>
+                        </View>     
+
+                        <View style={{padding:10,height:'40%',}}>
                             <Text style={{overflow:'visible',fontSize:20, fontWeight:'bold'}}> 
                                 {this.props.question[this.props.count]['question']}
                                 {'\n'}
                                 {/* {this.state.count} */}
                             </Text>
-
-                        </View>
+                        </View>                
+                    
                     </View>
+
                     {/* option */}
-                    <View>
-                    {this.props.question[this.props.count]['incorrect_answers'].map((v,k)=>{
+                    <View style={{marginTop:10,height:'40%'}}>
+                    {
+                      this.props.question[this.props.count]['incorrect_answers'].map((v,k)=>{
                             return(
                             <TouchableOpacity key={k} onPress={(v)=>{
                                 alert(v);
                             }}>
                                 <Text  style={{backgroundColor:'#cad',padding:8,borderRadius:12,fontSize:15,fontWeight:'800',marginBottom:15}}>{k+1}. {v}</Text>
-                                </TouchableOpacity>
-                                )
-                            }
-                        )
+                            </TouchableOpacity>
+                            )
+                        })
                     }
-                    <TouchableOpacity onPress={(v)=>{
-                                alert(v);
-                            }}>
-                    <Text  style={{backgroundColor:'green',padding:8,borderRadius:12,fontSize:15,fontWeight:'800',marginBottom:15}}>4. { this.props.question[this.props.count]['correct_answer'] }</Text>
-                                </TouchableOpacity>
-{/*                             
-                            <TouchableOpacity>
-                                <Text>Option 2 {this.state.opt}</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity>
-                                <Text>{this.props.question[this.props.count]['incorrect_answers']}3</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity>
-                                <Text>Option 4</Text>
-                            </TouchableOpacity> */}
+                        <TouchableOpacity>
+                        <Text  style={{backgroundColor:'green',padding:8,borderRadius:12,fontSize:15,fontWeight:'800',marginBottom:15}}>4. { this.props.question[this.props.count]['correct_answer'] }</Text>
+                        </TouchableOpacity>
                     </View>
              </View>
-            </View>
+            // </View>
+            
         );
     }
 }
@@ -63,7 +55,7 @@ class Quiz extends Component {
     }
 
     async componentDidMount(){
-            await fetch(`https://opentdb.com/api.php?amount=`+this.state.total+`&category=18&type=multiple`,
+            await fetch(`https://opentdb.com/api.php?amount=`+this.state.total+`&category=9&type=multiple`, // 18-cs ,9-gk
               {
                 headers:{
                   // 'Accept-language':'',
@@ -104,13 +96,38 @@ class Quiz extends Component {
 
     render() {
         return (
-        <View style={{backgroundColor:'#ffbe0b'}}>
+        <View style={{backgroundColor:'#ffbe0b',height:'100%'}}>
                 {/* Question container */}
-            <View style={{borderWidth:2,padding:10,height:'85%'}}>
+            {/* <View style={{borderWidth:2,padding:10,height:'100%'}}> */}
                     
                {this.state.f?
                     (<View>
+                            <View style={{height:'89%'}}>
                             <CurrentQuestion  count={this.state.count} question={this.state.question} />
+                            </View>
+                            <View style={{padding:4,height:'10%',marginTop:5,borderWidth:1,flexDirection:'row',justifyContent:'space-between',backgroundColor:'#e85d04',}}>
+                                <TouchableOpacity onPress={this.decrementCount}>
+                                    <Text>Previous</Text>
+                                </TouchableOpacity>
+                                {(this.state.count==(this.state.total-1))?(
+                                    <TouchableOpacity 
+                                    onPress={()=>{
+                                        this.props.navigation.navigate('Result');
+                                    }}
+                                    >
+                                        <Text>Submit</Text>
+                                    </TouchableOpacity>
+                                    )
+                                    :
+                                    (
+                                    <TouchableOpacity 
+                                        onPress={this.incrementCount}
+                                    >
+                                    <Text>Next</Text>
+                                    </TouchableOpacity>
+                                )}
+                            </View>
+            
                             {/* <Text>Data </Text> */}
                     </View>)
                     :
@@ -119,32 +136,9 @@ class Quiz extends Component {
                         <ActivityIndicator  size="large" color="green"/>
                     </View>)
                 }
-               </View>
+        
                    
-               <View style={{padding:10,height:'10%',marginTop:10,borderWidth:1,flexDirection:'row',justifyContent:'space-between',marginBottom:10,backgroundColor:'#e85d04',
-                        }}>
-                     <TouchableOpacity onPress={this.decrementCount}>
-                        <Text>Previous</Text>
-                    </TouchableOpacity>
-                    {(this.state.count==(this.state.total-1))?(
-                        <TouchableOpacity 
-                        onPress={()=>{
-                            this.props.navigation.navigate('Result');
-                        }}
-                        >
-                            <Text>Submit</Text>
-                        </TouchableOpacity>
-                        )
-                        :
-                        (
-                        <TouchableOpacity 
-                            onPress={this.incrementCount}
-                        >
-                        <Text>Next</Text>
-                        </TouchableOpacity>
-                    )}
-                </View>
-            
+              
             </View>
         )
     }
