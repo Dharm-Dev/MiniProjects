@@ -6,7 +6,6 @@ class Quiz extends Component {
         super(props);
         this.state=({question:[{'':''}],f:false,count:0,total:20,colorStatus:'red',apiStatus:'Fetching Data...'})
     }
-
     async componentDidMount(){
             await fetch(`https://opentdb.com/api.php?amount=`+this.state.total+`&category=9&type=multiple`, // 18-cs ,9-gk
               {
@@ -51,12 +50,13 @@ class Quiz extends Component {
             { this.state.f?
                 (<View>
                     <View style={{height:'89%'}}>
-                        <Question  count={this.state.count} question={this.state.question} />
+                        <Question  count={this.state.count} question={this.state.question} total={this.state.total} />
                     </View>
                     <View style={{padding:4,height:'10%',marginTop:5,borderWidth:1,flexDirection:'row',justifyContent:'space-between',backgroundColor:'#e85d04',}}>
                         <TouchableOpacity onPress={this.decrementCount}>
                             <Text style={{backgroundColor:'navy',color:'white',fontSize:24,textAlign:'center',fontWeight:'bold',padding:20,paddingTop:5,paddingBottom:5,borderRadius:10}}>Previous</Text>
                         </TouchableOpacity>
+                        {/* condition to submit the quiz on the last button */}
                         {(this.state.count==(this.state.total-1))?(
                             <TouchableOpacity 
                             onPress={()=>{
@@ -64,15 +64,12 @@ class Quiz extends Component {
                                     "Are your sure?",
                                     "Are you sure you want to Submit the quiz?",
                                     [
-                                      // The "Yes" button
                                       {
                                         text: "Yes",
                                         onPress: () => {
                                             this.props.navigation.navigate('Result');
                                         },
                                       },
-                                      // The "No" button
-                                      // Does nothing but dismiss the dialog when tapped
                                       {
                                         text: "No",
                                       },
@@ -93,7 +90,6 @@ class Quiz extends Component {
                             </TouchableOpacity>
                         )}
                     </View>
-    
                         {/* <Text>Data </Text> */}
                 </View>)
                 :

@@ -7,7 +7,7 @@ export default function QuestionLayout(props){
                     {/* question */}
                     <View style={{marginTop:20}}>
                         <View>
-                            <Text style={{textAlign:'center',margin:5,fontSize:18}}>Question {props.count+ 1}</Text>
+                            <Text style={{textAlign:'center',margin:5,fontSize:18}}>Question {props.count+ 1} / {props.total}</Text>
                         </View>     
 
                         <View style={{padding:10,height:'50%',}}>
